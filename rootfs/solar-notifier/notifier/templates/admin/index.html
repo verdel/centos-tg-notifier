@@ -1,0 +1,32 @@
+{% extends 'admin/master.html' %}
+{% block body %}
+{{ super() }}
+{% if not current_user.is_authenticated %}
+<link rel=stylesheet type=text/css href="{{ url_for('static', filename='css/login.css') }}">
+<div class="Absolute-Center is-Responsive">
+    <form method="POST" action="">
+    {{ form.hidden_tag() if form.hidden_tag }}
+         <h2 class="form-signin-heading">Please login</h2>
+        {% for field in form %}
+            {% if field.errors %}
+                {% for e in field.errors %}
+                    <div class="alert alert-danger">{{field.label }}: {{ e }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endfor %}
+        
+            <div class="form-group input-group {% if form.login.errors %} has-error {% endif %}">
+                <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                {{ form.login(class="form-control", placeholder="username", id="username") }}
+            </div>
+            <div class="form-group input-group {% if form.password.errors %} has-error {% endif %}">
+                <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                {{ form.password(class="form-control", placeholder="password", id="password") }}
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-def btn-block">Login</button>
+            </div>
+    </form>
+</div>
+{% endif %}
+{% endblock body %}

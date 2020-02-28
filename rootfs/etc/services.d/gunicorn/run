@@ -1,0 +1,4 @@
+#!/usr/bin/with-contenv sh
+
+cd /solar-notifier
+/usr/local/bin/gunicorn -c /solar-notifier/gunicorn.py run:app
